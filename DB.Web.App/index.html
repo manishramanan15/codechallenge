@@ -1,0 +1,299 @@
+﻿
+<!DOCTYPE html>
+<html lang="en" data-ng-app="HLFErpApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>DK App</title>
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Bootstrap -->
+    <link href="/Content/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/Content/font-awesome.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="/css/select2.min.css" rel="stylesheet">
+    <!--Angular Loading-->
+    <link href="/Content/loading-bar.min.css" rel="stylesheet">
+
+
+    <!-- Datatables -->
+    <link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col menu_fixed" ng-controller="indexController">
+                <div class="left_col scroll-view">
+
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="app.html" class="site_title">
+                            <i class="fa fa-line-chart"></i> <span>
+                                Danskey App
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <!-- menu profile quick info -->
+                    <div class="profile" data-ng-show="authentication.isAuth">
+                        <div class="profile_pic">
+                            <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            <h2>{{authentication.firstName}} {{authentication.lastName}}</h2>
+                        </div>
+                    </div>
+                    <!-- /menu profile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" data-ng-show="authentication.isAuth">
+                        <div class="menu_section">
+                            <h3>Quick Links</h3>
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a href="#index"><i class="fa fa-home"></i> Home </a>
+
+                                </li>
+                                <li><a href="#tables_dynamic"><i class="fa fa-table"></i>Products Data</a></li>
+                                <li>
+                                    <a href="#products"><i class="fa fa-bicycle"></i>Add Product</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small" ng-show="authentication.isAuth">
+                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" id="fullscreen" data-placement="top" title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" data-ng-click="logOut()">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav navbar-fixed-top" ng-controller="indexController">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right" data-ng-show="authentication.isAuth">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/img.jpg" alt="">{{authentication.firstName}}
+                                    <span class=" fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li><a href="javascript:;" data-toggle="modal" data-target=".bs-user-modal-sm"> Profile</a></li>
+                                    <li><a href="javascript:;" data-ng-click="logOut()"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                </ul>
+                            </li>
+
+                            <li role="presentation" class="dropdown">
+                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="badge bg-green">1</span>
+                                </a>
+                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                    <li>
+                                        <a>
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>Shankar</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="text-center">
+                                            <a>
+                                                <strong>See All Alerts</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div data-ng-view="">
+
+
+                </div>
+                <div ng-controller="indexController" data-ng-show="!authentication.isAuth">
+                    <a class="hiddenanchor" id="signup"></a>
+                    <a class="hiddenanchor" id="signin"></a>
+
+
+                    <div class="login_wrapper" nd>
+                        <div class="animate form login_form">
+                            <section class="login_content">
+                                <form action="#login" ng-controller="loginController">
+                                    <h1>Login Form</h1>
+                                    <div>
+                                        <input type="text" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required="" />
+                                    </div>
+                                    <div>
+                                        <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required="" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div data-ng-hide="message == ''" class="alert alert-danger">
+                                        {{message}}
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-default submit" href="#" data-ng-click="login()">Log in</a>
+                                        <a class="reset_pass" href="#">Lost your password?</a>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="separator">
+                                        <p class="change_link">
+                                            New to site?
+                                            <a href="#signup" class="to_register"> Create Account </a>
+                                        </p>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+
+                        <div id="register" class="animate form registration_form">
+                            <section class="login_content">
+                                <form action="#login">
+                                    <h1>Create Account</h1>
+                                    <div>
+                                        <input type="text" class="form-control" placeholder="Username" required="" />
+                                    </div>
+                                    <div>
+                                        <input type="email" class="form-control" placeholder="Email" required="" />
+                                    </div>
+                                    <div>
+                                        <input type="password" class="form-control" placeholder="Password" required="" />
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-default submit" href="#">Submit</a>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="separator">
+                                        <p class="change_link">
+                                            Already a member ?
+                                            <a href="#signin" class="to_register"> Log in </a>
+                                        </p>
+
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    <div class="modal fade bs-user-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="indexController">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">User Profile</h4>
+                </div>
+                <div class="modal-body">
+                   <p> UserID : {{authentication.userName}}</p>
+                    <p> First Name : {{authentication.firstName}}</p>
+                    <p> Last Name : {{authentication.lastName}}</p>
+                    <p> Email : {{authentication.email}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="/scripts/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/scripts/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="/scripts/select2.full.min.js"></script>
+  
+    <!-- Custom Theme Scripts -->
+    <script src="/scripts/custom.js"></script>
+
+    <!-- Angular Scripts Scripts -->
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="scripts/angular-sanitize.min.js"></script>
+    <script src="scripts/loading-bar.min.js"></script>
+
+    <!--App Main Script-->
+    <script src="erpapp/app.js"></script>
+
+    <!--Services-->
+    <script src="erpapp/services/authService.js"></script>
+    <script src="erpapp/services/authInterceptorService.js"></script>
+    <script src="erpapp/services/usersService.js"></script>
+    <script src="erpapp/services/odataService.js"></script>
+
+
+    <!--Controllers-->
+    <script src="erpapp/controllers/indexController.js"></script>
+    <script src="erpapp/controllers/loginController.js"></script>
+    <script src="erpapp/controllers/dataTablesController.js"></script>
+    <script src="erpapp/controllers/productController.js"></script>
+
+
+</body>
+</html>

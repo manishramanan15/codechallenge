@@ -1,0 +1,134 @@
+﻿<div class="page-title">
+    <div class="title_left">
+        <h3>Products</h3>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Add New Products</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+               
+                <form class="form-horizontal form-label-left" id="productform" novalidate name="productform" data-ng-submit="addproducts()">
+
+
+                    <div class="item form-group" ng-class="{ 'has-error' : productform.ProductName.$invalid && !productform.ProductName.$pristine }">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ProductName">
+                            Product Name<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="ProductName" data-ng-model="porduct.ProductName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" name="ProductName" placeholder="Product Name" required type="text">
+                            <p ng-show="productform.ProductName.$invalid && !productform.ProductName.$pristine" class="help-block">Product name is required.</p>
+                         </div>
+                    </div>
+
+                    <div class="item form-group" ng-class="{ 'has-error' : productform.SupplierID.$invalid && !productform.SupplierID.$pristine }">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="SupplierID">
+                            Supplier<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="SupplierID" name="SupplierID" data-ng-model="porduct.SupplierID" class="select2_single form-control" tabindex="-1" required>
+                                <option></option>
+                                <option data-ng-repeat="data in suppliers" value="{{data.SupplierID}}">
+                                    {{data.CompanyName}}
+                                </option>
+                            </select>
+
+                            <p ng-show="productform.SupplierID.$invalid && !productform.SupplierID.$pristine" class="help-block">Select a Supplier.</p>
+                        </div>
+                    </div>
+
+                    <div class="item form-group" ng-class="{ 'has-error' : productform.CategoryID.$invalid && !productform.CategoryID.$pristine }">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="CategoryID">
+                            Category <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="CategoryID" name="CategoryID" data-ng-model="porduct.CategoryID" class="select2_single form-control" tabindex="-1" required>
+                                <option></option>
+                                <option data-ng-repeat="data in categories" value="{{data.CategoryID}}">
+                                    {{data.CategoryName}}
+                                </option>
+                            </select>
+                            <p ng-show="productform.CategoryID.$invalid && !productform.CategoryID.$pristine" class="help-block">Select a Category.</p>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="QuantityPerUnit">
+                            Quantity Per Unit <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="QuantityPerUnit" name="QuantityPerUnit" data-ng-model="porduct.QuantityPerUnit" placeholder="Quantity Per Unit" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+
+                    <div class="item form-group" ng-class="{ 'has-error' : productform.UnitPrice.$invalid && !productform.UnitPrice.$pristine }">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="UnitPrice">
+                            Unit Price <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" step="0.01"  id="UnitPrice"  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" data-ng-model="porduct.UnitPrice" name="UnitPrice" placeholder="Unit Price" required class="form-control col-md-7 col-xs-12">
+                            <p ng-show="productform.UnitPrice.$invalid && !productform.UnitPrice.$pristine" class="help-block">Invalid input </p>
+                        </div>
+                    </div>
+
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <button type="button" class="btn btn-primary">Cancel</button>
+                            <button id="send" type="submit" ng-disabled="productform.$invalid" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div data-ng-hide="errormessage == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                        {{errormessage}}
+                    </div>
+                  
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+ <!-- Select2 -->
+<script>
+       $(document).ready(function () {
+            $.fn.select2.defaults.set("width", "100%");
+
+            $(".select2_single").select2({
+                placeholder: "Select",
+                allowClear: true
+            });
+            
+        });
+        
+</script>
+<!-- /Select2 -->
